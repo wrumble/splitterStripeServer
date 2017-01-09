@@ -53,11 +53,11 @@ post '/account/create' do
       :legal_entity => {
                         :first_name => params[:first_name],
                         :last_name => params[:last_name],
-                        # :dob => {
-                        #           :day => params[:day],
-                        #           :month => params[:month]
-                        #           :year => params[:year]
-                        #         }
+                        :dob => {
+                                  :day => "02",
+                                  :month => "02",
+                                  :year => "85"
+                                }
                         },
       # :tos_acceptance => {
       #                     :date => Time.now.utc,
