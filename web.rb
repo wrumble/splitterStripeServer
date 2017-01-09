@@ -50,19 +50,21 @@ end
 post '/account/create' do
   begin
     @account = Stripe::Account.create(
-      :legal_entity => {:first_name => params[:first_name],
-                     :last_name => params[:last_name]
+      :legal_entity => {
+                        :first_name => params[:first_name],
+                        :last_name => params[:last_name],
+                        :dob => {
+                                  day: => params[:day],
+                                  month: => params[:month],
+                                  year: => params[:year]
+                                },
+                        :type => "individual"
                    },
-      # day: params[:day],
-      # month: params[:month],
-      # year: params[:year],
-      # line_1: params[:line_1],
-      # city: params[:city],
-      # post_code: params[:post_code],
-      # type: "individual",
-      # date: Time.now.utc,
+      :tos_acceptance => {
+                          :date => Time.now.utc,
+                          :ip => request.remote_ip
+                         }
       :country => params[:country],
-      # :ip => request.remote_ip
       :managed => true
     )
   rescue Stripe::StripeError => e
