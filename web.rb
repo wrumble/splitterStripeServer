@@ -54,9 +54,9 @@ post '/account/create' do
                         :first_name => params[:first_name],
                         :last_name => params[:last_name],
                         :dob => {
-                                  :day => "02",
-                                  :month => "02",
-                                  :year => "85"
+                                  :day => params[:day],
+                                  :month => params[:month]
+                                  :year => 1985
                                 }
                         },
       # :tos_acceptance => {
