@@ -1,6 +1,6 @@
 {
-  "name": "Example Stripe iOS Backend",
-  "description": "For testing the Stripe example iOS apps at github.com/stripe/stripe-ios",
+  "name": "Stripe iOS Backend",
+  "description": "For Splitter App in conjunction with Stripe SDK",
   "repository": "https://github.com/stripe/example-ios-backend",
   "keywords": ["ios", "stripe"],
   "env": {

@@ -8,11 +8,11 @@ Dotenv.load
 Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 
 use Rack::Session::EncryptedCookie,
-  :secret => 'replace_me_with_a_real_secret_key' # Actually use something secret here!
+  :secret => ENV['SERVER_TEST_SECRET_KEY'] # Actually use something secret here!
 
 get '/' do
   status 200
-  return "Great, your backend is set up. Now you can configure the Stripe example iOS apps to point here."
+  return "Splitter Stripe Server is running."
 end
 
 post '/charge' do
@@ -24,10 +24,10 @@ post '/charge' do
   begin
     charge = Stripe::Charge.create(
       :amount => params[:amount], # this number should be in cents
-      :currency => "usd",
+      :currency => params[:currency],
       :customer => @customer.id,
       :source => source,
-      :description => "Example Charge"
+      :description => params[:description]
     )
   rescue Stripe::StripeError => e
     status 402
@@ -44,6 +44,19 @@ get '/customer' do
   content_type :json
   @customer.to_json
 end
+
+# get "/customer" do
+#   begin
+#     customer_id = "..." # Load the Stripe Customer ID for your logged in user
+#     customer = Stripe::Customer.retrieve(customer_id)
+#   rescue Stripe::StripeError => e
+#     status 402
+#     return "Error retrieving customer: #{e.message}"
+#   end
+#   status 200
+#   content_type :json
+#   customer.to_json
+# end
 
 post '/customer/sources' do
   authenticate!
@@ -107,9 +120,9 @@ post '/charge_card' do
   begin
     charge = Stripe::Charge.create(
       :amount => params[:amount], # this number should be in cents
-      :currency => "usd",
+      :currency => params[:currency],
       :card => token,
-      :description => "Example Charge"
+      :description => params[:description]
     )
   rescue Stripe::StripeError => e
     status 402
