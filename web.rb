@@ -50,7 +50,7 @@ end
 post '/account/create' do
   begin
     @account = Stripe::Account.create(
-      :legal_entity{ :first_name => params[:first_name],
+      :legal_entity => {:first_name => params[:first_name],
                      :last_name => params[:last_name]
                    },
       # day: params[:day],
