@@ -5,6 +5,7 @@ require 'json'
 require 'encrypted_cookie'
 
 Dotenv.load
+
 Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 
 use Rack::Session::EncryptedCookie,
