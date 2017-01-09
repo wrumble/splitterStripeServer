@@ -47,6 +47,30 @@ get '/customer' do
   @customer.to_json
 end
 
+post '/account/create' do
+  begin
+    @account = Stripe::Account.create (
+      first_name: => params[:first_name],
+      last_name: => params[:last_name],
+      day: params[:day],
+      month: params[:month],
+      year: params[:year],
+      line_1: params[:line_1],
+      city: params[:city],
+      post_code: params[:post_code],
+      type: "individual",
+      date: Time.now.utc,
+      country: params[:country],
+      managed: true
+    )
+  rescue Stripe::StripeError => e
+    status 402
+    return "Error creating managed cutomer account: #{e.message}"
+  end
+  status 200
+  return "Charge successfully created"
+end
+
 # get "/customer" do
 #   begin
 #     customer_id = "..." # Load the Stripe Customer ID for your logged in user
