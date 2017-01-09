@@ -63,7 +63,7 @@ post '/account/create' do
       :tos_acceptance => {
                           :date => Time.now.utc,
                           :ip => request.remote_ip
-                         }
+                         },
       :country => params[:country],
       :managed => true
     )
