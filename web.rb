@@ -61,8 +61,8 @@ post '/account/create' do
                         :type => "individual"
                    },
       :tos_acceptance => {
-                          :date => Time.now.utc,
-                          :ip => request.ip
+                          # :date => Time.now.utc,
+                          # :ip => request.ip
                          },
       :country => params[:country],
       :managed => true
