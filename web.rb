@@ -9,9 +9,7 @@ Dotenv.load
 Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 
 use Rack::Session::EncryptedCookie,
-
-  secret = ENV['SERVER_SECRET']
-  :secret =>  'secretthingsnshit' # Actually use something secret here!
+  :secret => ENV['SERVER_SECRET'] # Actually use something secret here!
 
 get '/' do
   status 200
