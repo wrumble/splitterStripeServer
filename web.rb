@@ -49,7 +49,7 @@ end
 
 post '/account/create' do
   begin
-    @account = Stripe::Account.create (
+    @account = Stripe::Account.create(
       :country => params[:country],
       :managed => true
     )
