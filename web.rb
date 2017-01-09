@@ -60,7 +60,7 @@ end
 #   customer.to_json
 # end
 
-post '/customer/charge' do
+post '/customer/sources' do
   authenticate!
   source = params[:source]
 
@@ -71,15 +71,22 @@ post '/customer/charge' do
     status 402
     return "Error adding token to customer: #{e.message}"
   end
-  charge = Stripe::Charge.create(
-    :amount => params[:amount], # this number should be in cents
-    :currency => params[:currency],
-    :customer => @customer.id,
-    :source => source,
-    :description => params[:description]
-  )
+
+  begin
+    charge = Stripe::Charge.create(
+      :amount => params[:amount], # this number should be in cents
+      :currency => params[:currency],
+      :customer => @customer.id,
+      :source => source,
+      :description => params[:description]
+    )
+  rescue Stripe::StripeError => e
+    status 402
+    return "Error creating charge: #{e.message}"
+  end
+
   status 200
-  return "Successfully added source."
+  return "Charge successfully created"
 end
 
 post '/customer/default_source' do
