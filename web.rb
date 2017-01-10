@@ -69,8 +69,8 @@ post '/account/create' do
       },
       :external_account => {
                             :object => "bank_account",
-                            :country => 'US',
-                            :currency => "usd",
+                            :country => 'UK',
+                            :currency => "gbp",
                             :routing_number => "110000000",
                             :account_number => "000123456789"
       },
