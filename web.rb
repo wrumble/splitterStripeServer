@@ -79,7 +79,6 @@ post '/account/create' do
       :country => params[:country],
       :managed => true
     )
-    @account.save
   rescue Stripe::StripeError => e
     status 402
     return "Error creating managed cutomer account: #{e.message}"
