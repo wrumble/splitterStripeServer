@@ -59,7 +59,7 @@ post '/account/create' do
                                   :year => params[:year]
                                 },
                         :address => {
-                                      :line_1 => params[:line_1],
+                                      :line1 => params[:line_1],
                                       :city => params[:city],
                                       :postal_code => params[:postal_code]
                         },
