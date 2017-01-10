@@ -51,17 +51,17 @@ post '/account/id' do
   begin
     Stripe::FileUpload.create(
       {
-        :purpose => 'identity_document',
+        :purpose => params[:purpose],
         :file => File.new('receipt.jpg')
       },
-      {:stripe_account => "acct_19aSx3FT1k7FPMJF"}
+      {:stripe_account => params[:stripe_account]}
     )
   rescue Stripe::StripeError => e
     status 402
     return "Error saving verification id to account: #{e.message}"
   end
   status 200
-  return "Verification ID saved succesfully to #{params[:account_id]}"
+  return "Verification ID saved succesfully to #{params[:stripe_account]}"
 end
 
 post '/account/id/save' do
