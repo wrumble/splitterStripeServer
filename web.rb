@@ -85,7 +85,6 @@ post '/account/create' do
   end
   status 200
   @account.to_json
-  return "Charge successfully created"
 end
 
 # get "/customer" do
