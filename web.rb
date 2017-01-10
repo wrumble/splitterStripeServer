@@ -59,11 +59,11 @@ post '/account/create' do
                                   :year => params[:year]
                                 }
       },
-      :tos_acceptance => {
-                          # :date => Time.now.utc,
-                          :ip => request.ip
-      },
-      # :type => "individual",
+      # :tos_acceptance => {
+      #                     :date => Time.now.utc,
+      #                     :ip => request.ip
+      # },
+      :type => "individual",
       :country => params[:country],
       :managed => true
     )
