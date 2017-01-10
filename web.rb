@@ -63,7 +63,7 @@ post '/account/create' do
       #                     :date => Time.now.utc,
       #                     :ip => request.ip
       # },
-      :type => "individual",
+      # :type => "individual",
       :country => params[:country],
       :managed => true
     )
