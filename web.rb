@@ -50,6 +50,8 @@ end
 post '/account/create' do
   begin
     @account = Stripe::Account.create(
+      :managed => true,
+      :country => params[:country],
       :legal_entity => {
                         :first_name => params[:first_name],
                         :last_name => params[:last_name],
@@ -75,16 +77,14 @@ post '/account/create' do
       :tos_acceptance => {
                           :date => Time.now.to_i,
                           :ip => request.ip
-      },
-      :country => params[:country],
-      :managed => true
+      }
     )
   rescue Stripe::StripeError => e
     status 402
     return "Error creating managed cutomer account: #{e.message}"
   end
   status 200
-  @account.to_json
+  return "Charge successfully created"
 end
 
 # get "/customer" do
