@@ -79,11 +79,10 @@ post '/account/create' do
                           :ip => request.ip
       }
     )
-    File.open('acct_19aNyNLGb8eIqA3wphotoID.jpg', 'w') { |file| file.write(params[:file]) }
     @file = Stripe::FileUpload.create(
     {
       :purpose => 'identity_document',
-      :file => File.new('acct_19aNyNLGb8eIqA3wphotoID.jpg')
+      :file => File.new('receipt.jpg')
     },
     {
       :stripe_account => "acct_19aNyNLGb8eIqA3w"
