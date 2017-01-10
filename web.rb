@@ -47,9 +47,32 @@ get '/customer' do
   @customer.to_json
 end
 
+post '/account/id' do
+  begin
+    Stripe::FileUpload.create(
+      {
+        :purpose => 'identity_document',
+        :file => File.new('receipt.jpg')
+      },
+      {:stripe_account => "acct_19aSx3FT1k7FPMJF"}
+    )
+  rescue Stripe::StripeError => e
+    status 402
+    return "Error saving verification id to account: #{e.message}"
+  end
+  status 200
+  return "Verification ID saved succesfully to #{params[:account_id]}"
+end
+
+post '/account/id/save' do
+  account = Stripe::Account.retrieve({params[:account_id]})
+  account.legal_entity.verification.document = params[:file_id]
+  account.save
+end
+
 post '/account/create' do
   begin
-    @account = Stripe::Account.create(
+    account = Stripe::Account.create(
       :managed => true,
       :country => params[:country],
       :legal_entity => {
@@ -78,16 +101,7 @@ post '/account/create' do
                           :date => Time.now.to_i,
                           :ip => request.ip
       }
-    )
-    @file = Stripe::FileUpload.create(
-    {
-      :purpose => 'identity_document',
-      :file => File.new('receipt.jpg')
-    },
-    {
-      :stripe_account => "acct_19aNyNLGb8eIqA3w"
-    }
-)
+  )
   rescue Stripe::StripeError => e
     status 402
     return "Error creating managed cutomer account: #{e.message}"
@@ -95,19 +109,6 @@ post '/account/create' do
   status 200
   return "Charge successfully created"
 end
-
-# get "/customer" do
-#   begin
-#     customer_id = "..." # Load the Stripe Customer ID for your logged in user
-#     customer = Stripe::Customer.retrieve(customer_id)
-#   rescue Stripe::StripeError => e
-#     status 402
-#     return "Error retrieving customer: #{e.message}"
-#   end
-#   status 200
-#   content_type :json
-#   customer.to_json
-# end
 
 post '/customer/sources' do
   authenticate!
