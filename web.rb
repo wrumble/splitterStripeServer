@@ -84,6 +84,7 @@ post '/account/create' do
     return "Error creating managed cutomer account: #{e.message}"
   end
   status 200
+  @account.to_json
   return "Charge successfully created"
 end
 
