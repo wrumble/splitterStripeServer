@@ -60,7 +60,7 @@ post '/account/create' do
                                 }
       },
       :tos_acceptance => {
-                          :date => Time.now.utc
+                          :date => 1483803994
                           # :ip => request.ip
       },
       # :type => "individual",
