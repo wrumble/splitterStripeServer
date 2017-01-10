@@ -57,13 +57,13 @@ post '/account/create' do
                                   :day => params[:day],
                                   :month => params[:month],
                                   :year => params[:year]
-                                }
+                                },
+                        :type => "individual"
       },
       # :tos_acceptance => {
       #                     :date => Time.now.to_i,
       #                     :ip => request.ip
       # },
-      :type => "sole_prop",
       :country => params[:country],
       :managed => true
     )
