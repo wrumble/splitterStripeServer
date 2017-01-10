@@ -65,7 +65,7 @@ post '/account/create' do
                         },
                         :type => "individual"
       },
-      :external_accounts => {
+      :external_account => {
                             :object => "bank_account",
                             :country => 'US',
                             :currency => "usd",
