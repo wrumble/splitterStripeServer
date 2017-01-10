@@ -52,17 +52,17 @@ post '/account/create' do
     @account = Stripe::Account.create(
       :legal_entity => {
                         :first_name => params[:first_name],
-                        :last_name => params[:last_name],
-                        :dob => {
-                                  :day => params[:day],
-                                  :month => params[:month]
-                                  # :year => params[:year]
-                                }
-                        },
-      # :tos_acceptance => {
-      #                     :date => Time.now.utc,
-      #                     :ip => request.ip
-      #                    },
+                        :last_name => params[:last_name]
+                        # :dob => {
+                        #           :day => params[:day],
+                        #           :month => params[:month],
+                        #           :year => params[:year]
+                        #         }
+      },
+      :tos_acceptance => {
+                          :date => Time.now.utc,
+                          :ip => request.ip
+      },
       :type => "individual",
       :country => params[:country],
       :managed => true
