@@ -67,13 +67,10 @@ post '/account/create' do
       },
       :external_accounts => {
                             :object => "bank_account",
-                            :country => params[:country],
-                            :currency => "gbp",
-                            :account_holder_name => "#{params[:first_name]} #{params[:last_name]}",
-                            :account_holder_type => 'individual',
+                            :country => 'US',
+                            :currency => "usd",
                             :routing_number => "110000000",
                             :account_number => "000123456789"
-
       },
       :tos_acceptance => {
                           :date => Time.now.to_i,
