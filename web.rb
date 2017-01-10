@@ -60,10 +60,10 @@ post '/account/create' do
                                 },
                         :type => "individual"
       },
-      # :tos_acceptance => {
-      #                     :date => Time.now.to_i,
-      #                     :ip => request.ip
-      # },
+      :tos_acceptance => {
+                          :date => Time.now.to_i,
+                          :ip => request.ip
+      },
       :country => params[:country],
       :managed => true
     )
