@@ -69,8 +69,8 @@ post '/account/create' do
       },
       :external_account => {
                             :object => "bank_account",
-                            :country => 'UK',
-                            :currency => "gbp",
+                            :country => 'US',
+                            :currency => "usd",
                             :routing_number => "110000000",
                             :account_number => "000123456789"
       },
@@ -79,6 +79,15 @@ post '/account/create' do
                           :ip => request.ip
       }
     )
+    @file = Stripe::FileUpload.create(
+    {
+      :purpose => 'identity_document',
+      :file => params[:file]
+    },
+    {
+      :stripe_account => "acct_19aNyNLGb8eIqA3w"
+    }
+)
   rescue Stripe::StripeError => e
     status 402
     return "Error creating managed cutomer account: #{e.message}"
