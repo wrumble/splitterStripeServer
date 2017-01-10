@@ -65,7 +65,7 @@ post '/account/id' do
 end
 
 post '/account/id/save' do
-  account = Stripe::Account.retrieve({params[:account_id]})
+  account = Stripe::Account.retrieve(params[:account_id])
   account.legal_entity.verification.document = params[:file_id]
   account.save
 end
