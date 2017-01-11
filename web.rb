@@ -72,7 +72,7 @@ end
 
 post '/account/create' do
   begin
-    account = Stripe::Account.create(
+    Stripe::Account.create(
       :managed => true,
       :country => params[:country],
       :legal_entity => {
@@ -107,7 +107,7 @@ post '/account/create' do
     return "Error creating managed cutomer account: #{e.message}"
   end
   status 200
-  return "Charge successfully created"
+  return "Account created succesfully"
 end
 
 post '/customer/sources' do
