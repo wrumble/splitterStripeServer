@@ -49,7 +49,7 @@ end
 
 post '/account/create' do
   begin
-    @account = Stripe::Account.create(
+    account = Stripe::Account.create(
       :managed => true,
       :country => params[:country],
       :legal_entity => {
@@ -84,7 +84,7 @@ post '/account/create' do
     return "Error creating managed cutomer account: #{e.message}"
   end
   status 200
-  return @account.to_json
+  return account.to_json
 end
 
 post '/account/id' do
@@ -92,7 +92,7 @@ post '/account/id' do
   p params[:file]
   p params[:stripe_account]
   begin
-    @file = Stripe::FileUpload.create(
+    file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
         :file => params[:file][:tempfile]
@@ -106,12 +106,14 @@ post '/account/id' do
     return "Error saving verification id to account: #{e.message}"
   end
   status 200
-  return @file.to_json
+  return file.to_json
 end
 
 post '/account/id/save' do
   account = Stripe::Account.retrieve(params[:stripe_account])
+  p account
   account.legal_entity.verification.document = params[:file_id]
+  p account
   account.save
   return account.to_json
 end
