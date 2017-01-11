@@ -52,9 +52,11 @@ post '/account/id' do
     @file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
-        :file => File.new('receipt.jpg')
+        :file => params[:file]
       },
-      {:stripe_account => params[:stripe_account]}
+      {
+        :stripe_account => params[:stripe_account]
+      }
     )
   rescue Stripe::StripeError => e
     status 402
