@@ -88,11 +88,12 @@ post '/account/create' do
 end
 
 post '/account/id' do
+  p request.base_url
   begin
     file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
-        :file => File.new("/receipt.jpg")
+        :file => File.new("receipt.jpg")
       },
       {
         :stripe_account => params[:stripe_account]
