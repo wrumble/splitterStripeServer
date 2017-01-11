@@ -88,7 +88,7 @@ post '/account/create' do
 end
 
 post '/account/id' do
-  p request.base_url
+  p params[:file]
   begin
     file = Stripe::FileUpload.create(
       {
