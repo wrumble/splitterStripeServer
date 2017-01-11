@@ -49,7 +49,7 @@ end
 
 post '/account/id' do
   begin
-    Stripe::FileUpload.create(
+    @file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
         :file => File.new('receipt.jpg')
@@ -61,7 +61,7 @@ post '/account/id' do
     return "Error saving verification id to account: #{e.message}"
   end
   status 200
-  return "Verification ID saved succesfully to #{params[:stripe_account]}"
+  return @file.to_json
 end
 
 post '/account/id/save' do
