@@ -52,7 +52,7 @@ post '/account/id' do
     @file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
-        :file => File.new('receipt.jpg')
+        :file => params[:file]
       },
       {
         :stripe_account => params[:stripe_account]
@@ -70,6 +70,7 @@ post '/account/id/save' do
   account = Stripe::Account.retrieve(params[:account_id])
   account.legal_entity.verification.document = params[:file_id]
   account.save
+  return account.to_json
 end
 
 post '/account/create' do
