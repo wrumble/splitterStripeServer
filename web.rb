@@ -107,7 +107,7 @@ post '/account/create' do
     return "Error creating managed cutomer account: #{e.message}"
   end
   status 200
-  return @account
+  return @account.to_json
 end
 
 post '/customer/sources' do
