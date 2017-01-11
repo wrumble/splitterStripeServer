@@ -110,8 +110,8 @@ post '/account/id/save' do
   account = Stripe::Account.retrieve(params[:stripe_account])
   p account
   account.legal_entity.verification.document = params[:file_id]
-  p account
   account.save
+  p account
   return account.to_json
 end
 
