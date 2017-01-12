@@ -92,8 +92,7 @@ post '/account/id' do
   filename = params[:file][:filename]
   p tempfile
   p filename
-  path = "#{tempfile.path}/#{filename}"
-  path.slice!(0)
+  path = ".#{tempfile.path}/#{filename}"
   p path
 
   begin
