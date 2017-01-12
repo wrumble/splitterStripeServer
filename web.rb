@@ -93,6 +93,7 @@ post '/account/id' do
   p tempfile
   p filename
   path = "#{tempfile.path}/#{filename}"
+  path.slice!(0)
   p path
 
   begin
