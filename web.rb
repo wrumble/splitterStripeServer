@@ -90,7 +90,7 @@ end
   post '/account/id' do
     tempfile = params[:file][:tempfile]
     filename = params[:file][:filename]
-    path = "#{settings.root}/#{tempfile.path}/#{filename}"
+    path = "#{settings.root}#{tempfile.path}/#{filename}"
     p settings.root
     p path
     begin
