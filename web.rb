@@ -93,7 +93,7 @@ post '/account/id' do
     file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
-        :file => params[:file].tempfile.path
+        :file => params[:file][:tempfile][:path]
       },
       {
         :stripe_account => params[:stripe_account]
