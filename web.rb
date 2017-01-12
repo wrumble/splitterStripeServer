@@ -88,15 +88,14 @@ post '/account/create' do
 end
 
 post '/account/id' do
-  tempfile = params[:file][:tempfile]
-  path = "#{tempfile.path}/#{params[:file][:filename]}"
-  p path
+  p params[:file][:tempfile]
+  p params[:file][:filename]
 
   begin
     file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
-        :file => tempfile.path
+        :file => File.new("receipt.jpg")
       },
       {
         :stripe_account => params[:stripe_account]
