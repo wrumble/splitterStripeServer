@@ -3,6 +3,7 @@ require 'stripe'
 require 'dotenv'
 require 'json'
 require 'encrypted_cookie'
+require 'fileutils'
 
 Dotenv.load
 
@@ -89,12 +90,12 @@ end
 
 post '/account/id' do
   begin
-    tempfile = params[:file][:tempfile]
-    path = "#{tempfile.path}.jpg"
-    file = Stripe::FileUpload.create(
+    tmp = params[:file][:tempfile]
+    file = File.join(settings.root, params[:upload][:file].original_filename)
+    FileUtils.cp tmp.path, file
       {
         :purpose => params[:purpose],
-        :file => File.new(path)
+        :file => File.new(file)
       },
       {
         :stripe_account => params[:stripe_account]
