@@ -90,8 +90,9 @@ end
   post '/account/id' do
     tempfile = params[:file][:tempfile]
     filename = params[:file][:filename]
-    path = ".#{settings.root}#{tempfile.path}/#{filename}"
-    p settings.root
+    root = settings.root
+    root.slice!(0)
+    path = "#{settings.root}#{tempfile.path}/#{filename}"
     p path
     begin
       file = Stripe::FileUpload.create(
