@@ -91,7 +91,7 @@ end
     tempfile = params[:file][:tempfile]
     filename = params[:file][:filename]
     path = "#{tempfile.path}/#{filename}"
-    path.slice!(0)
+    p settings.root
     p path
     begin
       file = Stripe::FileUpload.create(
