@@ -92,7 +92,7 @@ end
 post '/account/id' do
   begin
     tmp = params[:file][:tempfile]
-    file = File.join(settings.root, params[:upload][:file].original_filename)
+    file = File.join(settings.root.join('tmp/'), params[:file][:filename])
     FileUtils.cp tmp.path, file
     file = Stripe::FileUpload.create(
       {
