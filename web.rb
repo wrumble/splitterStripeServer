@@ -88,6 +88,7 @@ post '/account/create' do
 end
 
   post '/account/id' do
+    p params[:file]
     tempfile = params[:file][:tempfile]
     filename = params[:file][:filename]
     root = settings.root
