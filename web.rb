@@ -90,7 +90,8 @@ end
   post '/account/id' do
     uploaded_file = params[:file]
     tempfile = params[:file][:tempfile]
-    temp_file = File.open("#{settings.root}#{tempfile.path}/#{uploaded_file.filename}", 'wb')
+    filename = params[:file][:filename]
+    temp_file = File.open("#{settings.root}#{tempfile.path}/#{filename}", 'wb')
     temp_file.write(uploaded_file.read)
     temp_file.close
     begin
