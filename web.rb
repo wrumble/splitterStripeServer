@@ -91,7 +91,7 @@ end
     uploaded_file = params[:file]
     tempfile = params[:file][:tempfile]
     filename = params[:file][:filename]
-    temp_file = File.open("#{settings.root}#{tempfile.path}/#{filename}", 'wb')
+    temp_file = File.open("#{settings.root}#{tempfile.path}", 'wb')
     temp_file.write(uploaded_file.read)
     temp_file.close
     begin
