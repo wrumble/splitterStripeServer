@@ -92,7 +92,6 @@ post '/account/id' do
   begin
     tempfile = params[:file][:tempfile]
     newfile = "#{settings.root}#{tempfile.path}#{params[:file][:filename]}"
-    p newfile
     FileUtils.cp tempfile.path, newfile
     file = Stripe::FileUpload.create(
       {
@@ -115,7 +114,6 @@ post '/account/id/save' do
   account = Stripe::Account.retrieve(params[:stripe_account])
   account.legal_entity.verification.document = params[:file_id]
   account.save
-  p account
   return account.to_json
 end
 
