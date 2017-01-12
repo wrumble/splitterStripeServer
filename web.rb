@@ -88,9 +88,9 @@ post '/account/create' do
 end
 
 post '/account/id' do
-  tempfile = params[:file][:tempfile]
-  path = tempfile.path
   begin
+    tempfile = params[:file][:tempfile]
+    path = "#{tempfile.path}.jpg"
     file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
@@ -106,7 +106,6 @@ post '/account/id' do
   end
   status 200
   return file.to_json
-  File.delete(temp_file)
 end
 
 post '/account/id/save' do
