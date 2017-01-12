@@ -88,18 +88,15 @@ post '/account/create' do
 end
 
   post '/account/id' do
-    p params[:file]
-    tempfile = params[:file][:tempfile]
-    filename = params[:file][:filename]
-    root = settings.root
-    root.slice!(0)
-    path = "#{settings.root}#{tempfile.path}/#{filename}"
-    p path
+    uploaded_file = params[:file]
+    temp_file = File.open("#{settings.root}#{tempfile.path}/#{filename}", 'wb')
+    temp_file.write(uploaded_file.read)
+    temp_file.close
     begin
       file = Stripe::FileUpload.create(
         {
           :purpose => params[:purpose],
-          :file => File.new(path)
+          :file => File.new(temp_file.path)
         },
         {
           :stripe_account => params[:stripe_account]
@@ -111,6 +108,7 @@ end
     end
     status 200
     return file.to_json
+    File.delete(temp_file)
   end
 
 post '/account/id/save' do
