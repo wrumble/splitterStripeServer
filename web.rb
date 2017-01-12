@@ -87,29 +87,30 @@ post '/account/create' do
   return account.to_json
 end
 
-  post '/account/id' do
-    begin
-      file = Stripe::FileUpload.create(
-        {
-          :purpose => params[:purpose],
-          :file => File.open("receipt.jpg")
-        },
-        {
-          :stripe_account => params[:stripe_account]
-        }
-      )
-    rescue Stripe::StripeError => e
-      status 402
-      return "Error saving verification id to account: #{e.message}"
-    end
-    status 200
-    return file.to_json
-    File.delete(temp_file)
+post '/account/id' do
+  tempfile = params[:file][:tempfile]
+  path = tempfile.path
+  begin
+    file = Stripe::FileUpload.create(
+      {
+        :purpose => params[:purpose],
+        :file => File.new(path)
+      },
+      {
+        :stripe_account => params[:stripe_account]
+      }
+    )
+  rescue Stripe::StripeError => e
+    status 402
+    return "Error saving verification id to account: #{e.message}"
   end
+  status 200
+  return file.to_json
+  File.delete(temp_file)
+end
 
 post '/account/id/save' do
   account = Stripe::Account.retrieve(params[:stripe_account])
-  p account
   account.legal_entity.verification.document = params[:file_id]
   account.save
   p account
