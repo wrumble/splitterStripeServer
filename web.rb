@@ -91,7 +91,7 @@ end
 post '/account/id' do
   begin
     tempfile = params[:file][:tempfile]
-    file = File.join("#{settings.root}#{tempfile.path}", params[:file][:filename])
+    file = "#{settings.root}#{tempfile.path}#{params[:file][:filename]}"
     p file
     FileUtils.cp tempfile.path, file
     file = Stripe::FileUpload.create(
