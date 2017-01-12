@@ -92,7 +92,7 @@ end
       file = Stripe::FileUpload.create(
         {
           :purpose => params[:purpose],
-          :file => File.new("receipt.jpg")
+          :file => File.open("receipt.jpg")
         },
         {
           :stripe_account => params[:stripe_account]
