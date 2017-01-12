@@ -3,7 +3,6 @@ require 'stripe'
 require 'dotenv'
 require 'json'
 require 'encrypted_cookie'
-require 'roo'
 require 'fileutils'
 
 Dotenv.load
