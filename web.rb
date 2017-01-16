@@ -18,7 +18,7 @@ Dotenv.load
 Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 
 enable :sessions
-use Rack::Session::EncryptedCookie,
+set :session_store, Rack::Session::EncryptedCookie,
   :secret => ENV['SERVER_SECRET']
 
 CarrierWave.configure do |config|
