@@ -16,15 +16,15 @@ require_relative 'data_mapper_setup'
 
   Dotenv.load
 
+  use Rack::Session::EncryptedCookie,
+
+    :secret => ENV['SERVER_SECRET']
+
   Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 
   CarrierWave.configure do |config|
     config.root = File.dirname(__FILE__) + "/public"
   end
-
-  use Rack::Session::EncryptedCookie,
-
-    :secret => ENV['SERVER_SECRET']
 
   get '/' do
     status 200
