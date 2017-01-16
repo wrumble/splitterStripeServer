@@ -68,7 +68,7 @@ post '/account/create' do
     account = Stripe::Account.create(
       :managed => true,
       :country => params[:country],
-      # :email => params[:email],
+      :email => params[:email],
       :legal_entity => {
                         :first_name => params[:first_name],
                         :last_name => params[:last_name],
@@ -83,13 +83,6 @@ post '/account/create' do
                                       :postal_code => params[:postal_code]
                         },
                         :type => "individual"
-      },
-      :external_account => {
-                            :object => "bank_account",
-                            :country => 'US',
-                            :currency => "usd",
-                            :routing_number => "110000000",
-                            :account_number => "000123456789"
       },
       :tos_acceptance => {
                           :date => Time.now.to_i,
@@ -109,10 +102,10 @@ post '/account/external_account' do
   begin
     account = Stripe::Account.retrieve(params[:stripe_account])
     account.external_account.object = "bank_account"
-    account.external_account.country = params[:country]
-    account.external_account.currency = param[:currency]
-    account.external_account.account_number = params[:account_number]
-    account.external_account.routing_number = params[:sort_code]
+    account.external_account.country = 'US'
+    account.external_account.currency = "usd"
+    account.external_account.account_number = "110000000"
+    account.external_account.routing_number = "000123456789"
     account.save
   rescue Stripe::StripeError => e
     status 402
