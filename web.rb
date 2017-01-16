@@ -112,8 +112,6 @@ end
 post '/account/id' do
   begin
     path = File.dirname(__FILE__) + "/public"
-
-    tempfile = file.tempfile
     image = Image.new(file: params[:file])
     image.save
     file = Stripe::FileUpload.create(
