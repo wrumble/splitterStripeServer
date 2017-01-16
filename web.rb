@@ -95,7 +95,7 @@ end
 post '/account/external_account' do
   begin
     account = Stripe::Account.retrieve(params[:stripe_account])
-    account.external_account = [
+    account.external_accounts = [
       {:object => 'bank_account'},
       {:country => 'US'},
       {:currency => 'usd'},
