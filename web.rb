@@ -99,7 +99,7 @@ post '/account/external_account' do
     account.external_accounts.object = 'US'
     account.external_accounts.object = 'usd'
     account.external_accounts.object = '110000000'
-    account.external_accounts.object = '000123456789' 
+    account.external_accounts.object = '000123456789'
     account.save
   rescue Stripe::StripeError => e
     status 402
@@ -112,7 +112,8 @@ end
 post '/account/id' do
   begin
     path = File.dirname(__FILE__) + "/public"
-    image = Image.new(file: params[:file][:tempfile])
+    tempfile = params[:file][:tempfile]
+    image = Image.new(file: tempfile)
     image.save
     file = Stripe::FileUpload.create(
       {
