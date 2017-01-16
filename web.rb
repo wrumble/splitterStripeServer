@@ -95,15 +95,13 @@ end
 post '/account/external_account' do
   begin
     account = Stripe::Account.retrieve(params[:stripe_account])
-    account.external_account.object = "bank_account"
-    account.save
-    account.external_account.country = 'US'
-    account.save
-    account.external_account.currency = "usd"
-    account.save
-    account.external_account.account_number = "110000000"
-    account.save
-    account.external_account.routing_number = "000123456789"
+    account.external_account = [
+      {:object => 'bank_account'},
+      {:country => 'US'},
+      {:currency => 'usd'},
+      {:account_number => '110000000'},
+      {:routing_number => '000123456789'},
+    ]
     account.save
   rescue Stripe::StripeError => e
     status 402
