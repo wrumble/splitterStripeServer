@@ -113,6 +113,7 @@ post '/account/id' do
   begin
     path = File.dirname(__FILE__) + "/public"
     file = params[:file]
+    p file
     tempfile = file.tempfile
     image = Image.new(file: tempfile)
     image.save
