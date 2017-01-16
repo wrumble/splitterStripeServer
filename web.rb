@@ -62,23 +62,6 @@ get '/customer' do
   @customer.to_json
 end
 
-post '/account/external_account' do
-  begin
-    account = Stripe::Account.retrieve(params[:stripe_account])
-    account.external_account.object = "bank_account"
-    account.external_account.country = params[:country]
-    account.external_account.currency = param[:currency]
-    account.external_account.account_number = params[:account_number]
-    account.external_account.routing_number = params[:sort_code]
-    account.save
-  rescue Stripe::StripeError => e
-    status 402
-    return "Error adding external account to customer account: #{e.message}"
-  end
-  status 200
-  return account.to_json
-end
-
 post '/account/create' do
   begin
     p params
@@ -101,6 +84,13 @@ post '/account/create' do
                         },
                         :type => "individual"
       },
+      :external_account => {
+                            :object => "bank_account",
+                            :country => 'US',
+                            :currency => "usd",
+                            :routing_number => "110000000",
+                            :account_number => "000123456789"
+      },
       :tos_acceptance => {
                           :date => Time.now.to_i,
                           :ip => request.ip
@@ -110,6 +100,23 @@ post '/account/create' do
   rescue Stripe::StripeError => e
     status 402
     return "Error creating managed customer account: #{e.message}"
+  end
+  status 200
+  return account.to_json
+end
+
+post '/account/external_account' do
+  begin
+    account = Stripe::Account.retrieve(params[:stripe_account])
+    account.external_account.object = "bank_account"
+    account.external_account.country = params[:country]
+    account.external_account.currency = param[:currency]
+    account.external_account.account_number = params[:account_number]
+    account.external_account.routing_number = params[:sort_code]
+    account.save
+  rescue Stripe::StripeError => e
+    status 402
+    return "Error adding external account to customer account: #{e.message}"
   end
   status 200
   return account.to_json
