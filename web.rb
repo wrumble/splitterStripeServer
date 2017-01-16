@@ -15,9 +15,9 @@ require_relative 'data_mapper_setup'
 
 
 Dotenv.load
-Stripe.api_key = 'sk_test_faaqkV97rMrAUptUtIrxUBEG'
+Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 
-use Rack::Session::EncryptedCookie, :secret => 'thingsandstufftoseeifthisworksornot'
+use Rack::Session::EncryptedCookie, :secret => 'ENV['SERVER_SECRET']'
 
 CarrierWave.configure do |config|
   config.root = File.dirname(__FILE__) + "/public"
