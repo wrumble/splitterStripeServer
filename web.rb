@@ -85,6 +85,7 @@ class SplitterStripeServer < Sinatra::Base
       account = Stripe::Account.create(
         :managed => true,
         :country => params[:country],
+        :email => params[:email],
         :legal_entity => {
                           :first_name => params[:first_name],
                           :last_name => params[:last_name],
@@ -98,7 +99,6 @@ class SplitterStripeServer < Sinatra::Base
                                         :city => params[:city],
                                         :postal_code => params[:postal_code]
                           },
-                          :email => params[:email],
                           :type => "individual"
         },
         :tos_acceptance => {
