@@ -15,7 +15,7 @@ require_relative 'data_mapper_setup'
 
 
 Dotenv.load
-Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
+Stripe.api_key = 'sk_test_faaqkV97rMrAUptUtIrxUBEG'
 
 use Rack::Session::EncryptedCookie, :secret => 'thingsandstufftoseeifthisworksornot'
 
