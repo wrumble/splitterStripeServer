@@ -60,7 +60,6 @@ end
 
 post '/account/create' do
   begin
-    p params
     account = Stripe::Account.create(
       :managed => true,
       :country => params[:country],
@@ -85,7 +84,6 @@ post '/account/create' do
                           :ip => request.ip
       }
   )
-  p account
   rescue Stripe::StripeError => e
     status 402
     return "Error creating managed customer account: #{e.message}"
@@ -98,9 +96,13 @@ post '/account/external_account' do
   begin
     account = Stripe::Account.retrieve(params[:stripe_account])
     account.external_account.object = "bank_account"
+    account.save
     account.external_account.country = 'US'
+    account.save
     account.external_account.currency = "usd"
+    account.save
     account.external_account.account_number = "110000000"
+    account.save
     account.external_account.routing_number = "000123456789"
     account.save
   rescue Stripe::StripeError => e
