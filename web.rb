@@ -100,7 +100,7 @@ post '/account/external_account' do
       {:country => 'US'},
       {:currency => 'usd'},
       {:account_number => '110000000'},
-      {:routing_number => '000123456789'},
+      {:routing_number => '000123456789'}
     ]
     account.save
   rescue Stripe::StripeError => e
