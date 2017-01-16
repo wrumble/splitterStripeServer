@@ -13,7 +13,6 @@ require "carrierwave/orm/activerecord"
 require_relative 'models/image'
 require_relative 'data_mapper_setup'
 
-class SplitterStripeServer < Sinatra::Base
 
   Dotenv.load
 
@@ -232,4 +231,3 @@ class SplitterStripeServer < Sinatra::Base
     status 200
     return "Charge successfully created"
   end
-end

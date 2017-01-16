@@ -1,4 +1,4 @@
 require 'rubygems'
 require './web.rb'
 
-run SplitterStripeServer
+run Sinatra::Application
