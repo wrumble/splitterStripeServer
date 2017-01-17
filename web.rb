@@ -59,7 +59,6 @@ get '/customer' do
 end
 
 post '/account/create' do
-  p params
   begin
     account = Stripe::Account.create(
       :managed => true,
@@ -94,7 +93,6 @@ post '/account/create' do
 end
 
 post '/account/external_account' do
-  p params
   begin
     account = Stripe::Account.retrieve(params[:stripe_account])
     account.external_accounts.create(
@@ -115,7 +113,6 @@ post '/account/external_account' do
 end
 
 post '/account/id' do
-  p params
   begin
     path = File.dirname(__FILE__)
     image = Image.new(file: params[:file])
@@ -138,7 +135,6 @@ post '/account/id' do
 end
 
 post '/account/id/save' do
-  p params
   begin
     account = Stripe::Account.retrieve(params[:stripe_account])
     account.legal_entity.verification.document = params[:file_id]
@@ -148,7 +144,7 @@ post '/account/id/save' do
     return "Error saving verification id to account: #{e.message}"
   end
   status 200
-  return account.to_jso
+  return account.to_json
 end
 
 post '/customer/sources' do
