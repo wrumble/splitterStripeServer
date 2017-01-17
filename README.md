@@ -15,14 +15,22 @@ It has one get request ```/``` which is purely to show if the server is running 
 It is currently set to run in test mode. To run in test mode on heroku run:
 
 ```git clone git@github.com:wrumble/splitterStripeServer.git```
+
 ```cd splitterStripeServer```
+
 ```git init```
+
 ```git add .```
+
 ```git commit -m"initial commit"```
+
 ```heroku create <whatever server name you want>```
+
 ```git push heroku master```
+
 ```heroku run rake db:auto_migrate```
+
 
 You then need to sign up to Stripe and create a managed account. From the dashboard you can then get a publishable key which you will need for your app when running client and a secret key which you will then add to heroku's environment variables by running:
 
-```heroku config:set STRIPE_TEST_SECRET_KEY=WhateverYourStripeSecretKeyIs SERVER_SECRET=ThisCanBeAnyThingYouWantItsYourEncryptedCookieSecret```
+```heroku config:set STRIPE_TEST_SECRET_KEY=WhateverYourStripeSecretKeyIs SERVER_SECRET=YourEncryptedCookieSecret```
