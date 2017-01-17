@@ -32,7 +32,8 @@ post '/charge' do
   authenticate!
   p params
   begin
-    charge = Stripe::Charge.create({
+    charge = Stripe::Charge.create(
+    {
       :amount => params[:amount],
       :currency => params[:currency],
       :application_fee => (params[:amount] * 0.01),
