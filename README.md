@@ -28,17 +28,17 @@ It is currently set to run in test mode. To run in test mode on heroku run
 
 You then need to update data_mapper_setup.rb and replace
 
-```splitterstripeservertest.herokuapp.com```
+"splitterstripeservertest.herokuapp.com"
 
 with:
 
-```whatever_heroku_server_name_you_set.herokuapp.com```
+"whatever_heroku_server_name_you_set.herokuapp.com"
 
 Then run:
 
-git push heroku master
+```git push heroku master```
 
-heroku run rake db:auto_migrate
+```heroku run rake db:auto_migrate```
 
 
 You then need to sign up to Stripe and create a managed account. From the dashboard you can then get a publishable key which you will need for your app when running client and a test secret key which you will then add to heroku's environment variables by running
