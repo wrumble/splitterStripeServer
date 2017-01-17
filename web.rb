@@ -29,7 +29,7 @@ get '/' do
 end
 
 post '/charge' do
-  authenticate!
+  # authenticate!
   fee = (params[:amount]).to_i * 0.01
   p fee
   token = params[:source]
