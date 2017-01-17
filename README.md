@@ -33,4 +33,6 @@ It is currently set to run in test mode. To run in test mode on heroku run:
 
 You then need to sign up to Stripe and create a managed account. From the dashboard you can then get a publishable key which you will need for your app when running client and a secret key which you will then add to heroku's environment variables by running:
 
-```heroku config:set STRIPE_TEST_SECRET_KEY=WhateverYourStripeSecretKeyIs SERVER_SECRET=YourEncryptedCookieSecret```
+```heroku config:set STRIPE_TEST_SECRET_KEY=WhateverYourStripeSecretKeyIs```
+
+```heroku config:set SERVER_SECRET=WhateverYouWantAsItsYourEncryptedCookieSecret```
