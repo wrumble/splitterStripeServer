@@ -117,6 +117,7 @@ post '/account/id' do
         :stripe_account => params[:stripe_account]
       }
     )
+    image.destroy
   rescue Stripe::StripeError => e
     status 402
     return "Error saving verification id to account: #{e.message}"
