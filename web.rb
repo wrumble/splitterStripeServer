@@ -30,25 +30,23 @@ end
 
 post '/charge' do
   authenticate!
-  # Get the credit card details submitted by the form
-  source = params[:source]
 
-  # Create the charge on Stripe's servers - this will charge the user's card
   begin
-    charge = Stripe::Charge.create(
+    charge = Stripe::Charge.create({
       :amount => params[:amount],
       :currency => params[:currency],
-      :customer => @customer.id,
-      :source => source,
+      :application_fee => (params[:amount] * 0.01),
+      :source => params[:source],
       :description => params[:description]
-    )
+    },{
+      :stripe_account => params[:stripe_accountID]
+    })
   rescue Stripe::StripeError => e
     status 402
-    return "Error creating charge: #{e.message}"
+    return "Error charging bill splitter: #{e.message}"
   end
-
   status 200
-  return "Charge successfully created"
+  return "Bill splitter charged successfully."
 end
 
 get '/customer' do
@@ -135,10 +133,13 @@ post '/account/id' do
 end
 
 post '/account/id/save' do
+  p params
   begin
     account = Stripe::Account.retrieve(params[:stripe_account])
     account.legal_entity.verification.document = params[:file_id]
+    p account
     account.save
+    p account
   rescue Stripe::StripeError => e
     status 402
     return "Error saving verification id to account: #{e.message}"
