@@ -29,7 +29,8 @@ get '/' do
 end
 
 post '/charge' do
-  fee = (params[:amount]).to_i * 0.01
+  amount = params[:amount]*100
+  fee = amount * 0.039 + 0.3
   token = params[:source]
   begin
     charge = Stripe::Charge.create(
@@ -38,16 +39,15 @@ post '/charge' do
       :currency => params[:currency],
       :application_fee => fee,
       :source => token,
-      :description => params[:description]
-    },{
-      :stripe_account => params[:stripe_accountID]
+      :description => params[:description],
+      :destination => params[:stripe_accountID]
     })
   rescue Stripe::StripeError => e
     status 402
     return "Error charging bill splitter: #{e.message}"
   end
   status 200
-  return "Bill splitter charged successfully."
+  return charge.to_json
 end
 
 post '/account/create' do
