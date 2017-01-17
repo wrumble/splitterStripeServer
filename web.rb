@@ -30,13 +30,14 @@ end
 
 post '/charge' do
   authenticate!
-  p params
+  fee = params[:amount] * 0.01
+  p fee
   begin
     charge = Stripe::Charge.create(
     {
       :amount => params[:amount],
       :currency => params[:currency],
-      :application_fee => (params[:amount] * 0.01),
+      :application_fee => fee,
       :source => params[:source],
       :description => params[:description]
     },{
