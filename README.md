@@ -28,11 +28,11 @@ It is currently set to run in test mode. To run in test mode on heroku run
 
 You then need to update data_mapper_setup.rb and replace
 
-```postgres://splitterstripeservertest.herokuapp.com//splitter_stripe_server_```
+```splitterstripeservertest.herokuapp.com```
 
 with:
 
-```postgres://<whatever heroku server name you set>.herokuapp.com//splitter_stripe_server_```
+```whatever_heroku_server_name_you_set.herokuapp.com```
 
 Then run:
 
@@ -54,6 +54,7 @@ Now if you go to https://<whatever server name you set>.herokuapp.com/ you shoul
 
 Splitter's Stripe Server is running.
 
+If not run ```heroku logs``` to see what errors your getting and start googling!
 
 To go live you must do as above but using your live stripe keys instead of test keys, you will also want to change the pre filled test account details in the /account/external_account request to whatever params you pass from your client side app. These will change to
 
@@ -67,6 +68,7 @@ To go live you must do as above but using your live stripe keys instead of test 
 :account_number => params[:account_number]
 
 :object => "bank_account" can stay as it is.
+
 
 
 That should be it! let me know of any updates, errors refactors etc :)
