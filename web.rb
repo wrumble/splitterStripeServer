@@ -96,9 +96,13 @@ post '/account/external_account' do
   begin
     account = Stripe::Account.retrieve(params[:stripe_account])
     account.external_accounts.object = 'bank_account'
+    account.save
     account.external_accounts.country = 'US'
+    account.save
     account.external_accounts.currency = 'usd'
+    account.save
     account.external_accounts.routing_number = '110000000'
+    account.save
     account.external_accounts.account_number = '000123456789'
     account.save
   rescue Stripe::StripeError => e
@@ -114,6 +118,7 @@ post '/account/id' do
     path = File.dirname(__FILE__) + "/public"
     image = Image.new(file: params[:file])
     image.save
+    p image.file.url
     file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
