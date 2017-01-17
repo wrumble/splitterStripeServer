@@ -49,7 +49,7 @@ post '/charge' do
   return charge.to_json
 end
 
-post '/account/create' do
+post '/account' do
   begin
     account = Stripe::Account.create(
       :managed => true,
@@ -67,17 +67,13 @@ post '/account/create' do
                                       :line1 => params[:line1],
                                       :city => params[:city],
                                       :postal_code => params[:postal_code]
-                        },
+                                    },
                         :type => "individual"
-      },
+                        },
       :tos_acceptance => {
                           :date => Time.now.to_i,
                           :ip => request.ip
-      },
-      :transfer_schedule => {
-                          :delay_days => 1,
-                          :interval => "daily"
-  }
+                          }
   )
   rescue Stripe::StripeError => e
     status 402

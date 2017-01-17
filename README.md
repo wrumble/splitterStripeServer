@@ -1,16 +1,15 @@
-Example iOS Backend
-====
+Lightweight backend server for Splitter iOS app in ruby with sinatra.
 
-This is a really simple [Sinatra](http://www.sinatrarb.com/) webapp that you can use to test Stripe's [example iOS apps](https://github.com/stripe/stripe-ios).
+Utilises the Stripe gem to connect two users and allow the transfering of money using Stripe Connect.
 
-It has a single endpoint, `/charge`, which takes 2 parameters (`stripeToken` and `amount`) to create a charge on your Stripe account.
+Currently has 5 post requests to deal with:
 
-This is intended for example purposes only: you'll likely need something more serious for your production apps.
+- Adding a Stripe Connect Managed account. --- ```/account```
+- Adding a external bank account to withdraw funds from the managed account. --- ```/account/external_account```
+- Adding verification photo id to the Managed account. --- ```/account/id```
+- Saving verification photo id using file_id from ```account/id``` response. --- ```/account/id/save```
+- Charging a users card in which a percentage goes to the Splitter account and the rest to the app owners Stripe Connect Managed account. --- ```/charge```
 
-To deploy this for free on Heroku, click this button:
+It has one get request ```/``` which is purely to show if the server is running correctly.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-Then set the `backendChargeURLString` variable in our example apps to your Heroku URL (it'll be in the format https://my-example-app.herokuapp.com).
-
-Happy testing!
+It is currently set to run in test mode. To run in test mode on heroku run:
