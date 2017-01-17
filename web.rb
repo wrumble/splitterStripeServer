@@ -29,7 +29,7 @@ get '/' do
 end
 
 post '/charge' do
-  amount = params[:amount]*100
+  amount = params[:amount].to_i * 100
   fee = amount * 0.039 + 0.3
   token = params[:source]
   begin
