@@ -112,13 +112,15 @@ end
 
 post '/account/id' do
   begin
+    path = File.dirname(__FILE__)
     image = Image.new(file: params[:file])
     image.save
-    p "#{image.file.url}"
+    p path
+    p "#{image.file.url}" # returns "/uploads/success.png"
     file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
-        :file => File.new(image.file.url)
+        :file => File.new("#{path}#{image.file.url}") # gives error No such file or directory @ rb_sysopen - /uploads/success.png
       },
       {
         :stripe_account => params[:stripe_account]
