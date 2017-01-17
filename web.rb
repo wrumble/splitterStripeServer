@@ -31,7 +31,7 @@ end
 post '/charge' do
   amount = params[:amount].to_i * 100
   p amount
-  fee = (amount * 0.039) + 30)
+  fee = amount * 0.039) + 30
   p fee.ceil
   token = params[:source]
   begin
