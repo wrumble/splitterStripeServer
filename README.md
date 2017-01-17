@@ -43,15 +43,20 @@ Then run:
 
 You then need to sign up to Stripe and create a managed account. From the dashboard you can then get a publishable key which you will need for your app when running client and a test secret key which you will then add to heroku's environment variables by running:
 
+
 ```heroku config:set STRIPE_TEST_SECRET_KEY=WhateverYourStripeSecretKeyIs```
 
 ```heroku config:set SERVER_SECRET=WhateverYouWantAsItsYourEncryptedCookieSecret```
 
+
 Now if you go to https://<whatever server name you set>.herokuapp.com/ you should see:
+
 
 ```Splitter's Stripe Server is running.```
 
+
 To go live you must do as above but using your live stripe keys instead of test keys, you will also want to change the pre filled test account details in the ```/account/external_account``` request to whatever params you pass from your client side app. These will change to:
+
 
 ```:country =>  params[:country]```
 
@@ -62,5 +67,6 @@ To go live you must do as above but using your live stripe keys instead of test 
 ```:account_number => params[:account_number]```
 
 ```:object => "bank_account"``` can stay as it is.
+
 
 That should be it! let me know of any updates, errors refactors etc :)
