@@ -32,6 +32,8 @@ post '/charge' do
   authenticate!
   fee = params[:amount] * 0.01
   p fee
+  p params
+  p params[:amount]
   begin
     charge = Stripe::Charge.create(
     {
@@ -135,13 +137,10 @@ post '/account/id' do
 end
 
 post '/account/id/save' do
-  p params
   begin
     account = Stripe::Account.retrieve(params[:stripe_account])
     account.legal_entity.verification.document = params[:file_id]
-    p account
     account.save
-    p account
   rescue Stripe::StripeError => e
     status 402
     return "Error saving verification id to account: #{e.message}"
