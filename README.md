@@ -2,7 +2,7 @@ Lightweight backend server for Splitter iOS app in ruby with sinatra.
 
 Utilises the Stripe gem to connect two users and allow the transfering of money using Stripe Connect.
 
-Currently has 5 post requests to deal with:
+Currently has 5 post requests to deal with
 
 - Adding a Stripe Connect Managed account. --- ```/account```
 - Adding a external bank account to withdraw funds from the managed account. --- ```/account/external_account```
@@ -12,7 +12,7 @@ Currently has 5 post requests to deal with:
 
 It has one get request ```/``` which is purely to show if the server is running correctly.
 
-It is currently set to run in test mode. To run in test mode on heroku run:
+It is currently set to run in test mode. To run in test mode on heroku run
 
 ```git clone git@github.com:wrumble/splitterStripeServer.git```
 
@@ -26,7 +26,7 @@ It is currently set to run in test mode. To run in test mode on heroku run:
 
 ```heroku create <whatever server name you want>```
 
-You then need to update ```data_mapper_setup.rb``` and replace:
+You then need to update ```data_mapper_setup.rb``` and replace
 
 ```postgres://splitterstripeservertest.herokuapp.com//splitter_stripe_server_```
 
@@ -41,7 +41,7 @@ Then run:
 ```heroku run rake db:auto_migrate```
 
 
-You then need to sign up to Stripe and create a managed account. From the dashboard you can then get a publishable key which you will need for your app when running client and a test secret key which you will then add to heroku's environment variables by running:
+You then need to sign up to Stripe and create a managed account. From the dashboard you can then get a publishable key which you will need for your app when running client and a test secret key which you will then add to heroku's environment variables by running
 
 
 ```heroku config:set STRIPE_TEST_SECRET_KEY=WhateverYourStripeSecretKeyIs```
@@ -49,13 +49,13 @@ You then need to sign up to Stripe and create a managed account. From the dashbo
 ```heroku config:set SERVER_SECRET=WhateverYouWantAsItsYourEncryptedCookieSecret```
 
 
-Now if you go to https://<whatever server name you set>.herokuapp.com/ you should see:
+Now if you go to ```https://<whatever server name you set>.herokuapp.com/``` you should see
 
 
 ```Splitter's Stripe Server is running.```
 
 
-To go live you must do as above but using your live stripe keys instead of test keys, you will also want to change the pre filled test account details in the ```/account/external_account``` request to whatever params you pass from your client side app. These will change to:
+To go live you must do as above but using your live stripe keys instead of test keys, you will also want to change the pre filled test account details in the ```/account/external_account``` request to whatever params you pass from your client side app. These will change to
 
 
 ```:country =>  params[:country]```
