@@ -137,7 +137,7 @@ post '/account/id' do
   return file.to_json
 end
 
-post '/account/id' do
+post '/account/id/save' do
   p params
   begin
     account = Stripe::Account.retrieve(params[:stripe_account])
