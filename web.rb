@@ -94,14 +94,15 @@ end
 
 post '/account/external_account' do
   begin
-    p params
     account = Stripe::Account.retrieve(params[:stripe_account])
     account.external_accounts.create(
-      :object => "bank_account",
-      :country => "US",
-      :currency => "usd",
-      :routing_number => "110000000",
-      :account_number => "000123456789"
+      :external_account => {
+                            :object => "bank_account",
+                            :country => "US",
+                            :currency => "usd",
+                            :routing_number => "110000000",
+                            :account_number => "000123456789"
+                          }
     )
   rescue Stripe::StripeError => e
     status 402
@@ -113,7 +114,6 @@ end
 
 post '/account/id' do
   begin
-    p params
     path = File.dirname(__FILE__)
     image = Image.new(file: params[:file])
     image.save
@@ -135,7 +135,6 @@ post '/account/id' do
 end
 
 post '/account/id' do
-  p params
   account = Stripe::Account.retrieve(params[:stripe_account])
   account.legal_entity.verification.document = params[:file_id]
   account.save
