@@ -20,7 +20,7 @@ Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 use Rack::Session::EncryptedCookie, :secret => ENV['SERVER_SECRET']
 
 CarrierWave.configure do |config|
-  config.root = File.dirname(__FILE__) + "/public"
+  config.root = File.dirname(__FILE__)
 end
 
 get '/' do
@@ -112,14 +112,13 @@ end
 
 post '/account/id' do
   begin
-    path = File.dirname(__FILE__) + "/public"
     image = Image.new(file: params[:file])
     image.save
-    p "#{path}#{image.file.url}"
+    p "#{image.file.url}"
     file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
-        :file => File.new("#{path}#{image.file.url}")
+        :file => File.new("#{image.file.url}")
       },
       {
         :stripe_account => params[:stripe_account]
