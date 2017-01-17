@@ -73,7 +73,11 @@ post '/account/create' do
       :tos_acceptance => {
                           :date => Time.now.to_i,
                           :ip => request.ip
-      }
+      },
+      :transfer_schedule => {
+                          :delay_days => 1,
+                          :interval => "daily"
+  }
   )
   rescue Stripe::StripeError => e
     status 402
