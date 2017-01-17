@@ -30,7 +30,7 @@ end
 
 post '/charge' do
   authenticate!
-  fee = params[:amount] * 0.01
+  fee = (params[:amount]).to_i * 0.01
   p fee
   p params
   p params[:amount]
