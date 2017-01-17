@@ -135,10 +135,19 @@ post '/account/id' do
 end
 
 post '/account/id' do
-  account = Stripe::Account.retrieve(params[:stripe_account])
-  account.legal_entity.verification.document = params[:file_id]
-  account.save
-  return account.to_json
+  begin
+    p params
+    account = Stripe::Account.retrieve(params[:stripe_account])
+    p account
+    account.legal_entity.verification.document = params[:file_id]
+    p account
+    account.save
+  rescue Stripe::StripeError => e
+    status 402
+    return "Error saving verification id to account: #{e.message}"
+  end
+  status 200
+  return account.to_jso
 end
 
 post '/customer/sources' do
