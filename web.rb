@@ -112,12 +112,14 @@ end
 
 post '/account/id' do
   begin
+    path = File.dirname(__FILE__) + "/public"
     image = Image.new(file: params[:file])
     image.save
+    p "#{path}#{image.file.url}"
     file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
-        :file => File.new(image.file.url)
+        :file => File.new("#{path}#{image.file.url}")
       },
       {
         :stripe_account => params[:stripe_account]
