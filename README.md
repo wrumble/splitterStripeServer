@@ -14,25 +14,25 @@ It has one get request ```/``` which is purely to show if the server is running 
 
 It is currently set to run in test mode. To run in test mode on heroku run
 
-git clone git@github.com:wrumble/splitterStripeServer.git
+```git clone git@github.com:wrumble/splitterStripeServer.git```
 
-cd splitterStripeServer
+```cd splitterStripeServer```
 
-git init
+```git init```
 
-git add .
+```git add .```
 
-git commit -m"initial commit"
+```git commit -m"initial commit"```
 
-heroku create <whatever server name you want>
+```heroku create whatever_server_name_you_want```
 
 You then need to update data_mapper_setup.rb and replace
 
-postgres://splitterstripeservertest.herokuapp.com//splitter_stripe_server_
+```postgres://splitterstripeservertest.herokuapp.com//splitter_stripe_server_```
 
 with:
 
-postgres://<whatever heroku server name you set>.herokuapp.com//splitter_stripe_server_
+```postgres://<whatever heroku server name you set>.herokuapp.com//splitter_stripe_server_```
 
 Then run:
 
