@@ -29,8 +29,10 @@ get '/' do
 end
 
 post '/charge' do
-  amount = 1000
-  fee = 39
+  amount = params[:amount].to_i * 100
+  p amount
+  fee = (amount * 0.039) + 30
+  p fee
   token = params[:source]
   begin
     charge = Stripe::Charge.create(
