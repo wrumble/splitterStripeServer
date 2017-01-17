@@ -117,7 +117,7 @@ post '/account/id' do
     file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
-        :file => image.image.url
+        :file => image.file.url
       },
       {
         :stripe_account => params[:stripe_account]
