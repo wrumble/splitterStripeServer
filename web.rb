@@ -29,7 +29,6 @@ get '/' do
 end
 
 post '/charge' do
-  authenticate!
   fee = (params[:amount]).to_i * 0.01
   token = params[:source]
   begin
@@ -38,7 +37,7 @@ post '/charge' do
       :amount => params[:amount],
       :currency => params[:currency],
       :application_fee => fee,
-      :source => @customer.id,
+      :source => token,
       :description => params[:description]
     },{
       :stripe_account => params[:stripe_accountID]
@@ -138,22 +137,4 @@ post '/account/id/save' do
   end
   status 200
   return account.to_json
-end
-
-def authenticate!
-  return @customer if @customer
-  if session.has_key?(:customer_id)
-    customer_id = session[:customer_id]
-    begin
-      @customer = Stripe::Customer.retrieve(customer_id)
-    rescue Stripe::InvalidRequestError
-    end
-  else
-    begin
-      @customer = Stripe::Customer.create(:description => "iOS SDK example customer")
-    rescue Stripe::InvalidRequestError
-    end
-    session[:customer_id] = @customer.id
-  end
-  @customer
 end
