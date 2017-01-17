@@ -94,6 +94,7 @@ end
 
 post '/account/external_account' do
   begin
+    p params
     account = Stripe::Account.retrieve(params[:stripe_account])
     account.external_accounts.create(
       :object => "bank_account",
@@ -112,15 +113,14 @@ end
 
 post '/account/id' do
   begin
+    p params
     path = File.dirname(__FILE__)
     image = Image.new(file: params[:file])
     image.save
-    p path
-    p "#{image.file.url}" # returns "/uploads/success.png"
     file = Stripe::FileUpload.create(
       {
         :purpose => params[:purpose],
-        :file => File.new("#{path}#{image.file.url}") # gives error No such file or directory @ rb_sysopen - /uploads/success.png
+        :file => File.new("#{path}#{image.file.url}")
       },
       {
         :stripe_account => params[:stripe_account]
@@ -135,6 +135,7 @@ post '/account/id' do
 end
 
 post '/account/id' do
+  p params
   account = Stripe::Account.retrieve(params[:stripe_account])
   account.legal_entity.verification.document = params[:file_id]
   account.save
