@@ -53,7 +53,7 @@ post '/account' do
   begin
     account = Stripe::Account.create(
       :managed => true,
-      :country => params[:country],
+      :country => "GB",
       :email => params[:email],
       :legal_entity => {
                         :first_name => params[:first_name],
